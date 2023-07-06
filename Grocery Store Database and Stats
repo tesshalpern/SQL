@@ -1,4 +1,4 @@
--Create a grocery store database 
+--Create a grocery store database 
 
 CREATE TABLE foodshop (id INTEGER PRIMARY KEY, Item TEXT, Department TEXT, Price INTEGER, Popularity INTEGER); 
 
