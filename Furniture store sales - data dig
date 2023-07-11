@@ -115,40 +115,39 @@ INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,co
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/14/09 11:19','Chair',1200,'Visa','Jennifer','Jumeira','Dubayy','United Arab Emirates','1/14/09 10:44','1/14/09 21:26',25.2097222,55.2477778);
 INSERT INTO sales(transaction_date,product,price,payment_type,name,city,state,country,account_created,last_login,latitude,longitude) VALUES ('1/13/09 19:39','Chair',1200,'Visa','Jolene','Englewood','CO','United states','1/6/09 22:00','1/14/09 22:02',39.64778,-104.98722);
 
---Display the database ordered by max price
+-- Display the largest sales price 
 SELECT MAX (price) FROM sales;
 
---Display the database ordered by average price
+-- Display the average price of all sales
 SELECT AVG (price) FROM sales;
 
---Display the database by city showing the first five orders where the price is more than $1,200
-SELECT city, product
+-- Display the products sold in each city with total sales greater than $2,400
+SELECT city, product, SUM(price)
 FROM sales
-GROUP BY city
-HAVING price = 1200
-limit 5;
+GROUP BY city, product
+HAVING SUM(price) >2400;
 
---Show the average price of sales in each city where price is greater than $1,200
+-- Show the average sale price in each city with an average sale price greater than $1,200
 SELECT city, AVG(price) As Average_Sale
 FROM sales
 GROUP BY city
-HAVING price  > 1200; 
+HAVING avg (price)  > 1200; 
 
---Show transactions where payment is one of two types and in a specific country
+-- Show transactions where payment type is one of two types and in a specific country
 SELECT ID, name, country, payment_type
 FROM sales 
 WHERE (payment_type = "Mastercard" OR payment_type = "Amex") 
 AND country = "United states";
 
---Show transactions where payment matches selected with specific columns
+-- Show sales where payment type is one of two types and like payment types are grouped together
 SELECT ID, name, city, payment_type
 FROM sales 
 WHERE payment_type IN ("Mastercard" , ”Amex") ORDER BY payment_type;
 
---Display transactions that meet certain cryteria as "large order"
+-- Display transactions that meet certain criteria as "large order"
 SELECT transaction_date, product, price,
 CASE
-  WHEN price > 1200 THEN "large Order"
+  WHEN price > 1200 THEN "large order"
   ELSE "small order"
-END AS priority_orders
+END AS order_type
 FROM sales;
