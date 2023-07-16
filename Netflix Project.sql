@@ -5,22 +5,20 @@
 */
 
 CREATE TABLE netflix_titles_info(
-    "show_id" varchar(5), 
-    "type" varchar(7),
-    "title" varchar(58),
-    "country" varchar(74),
-    "date_added" timestamp,
-    "release_year" int,
-    "rating" varchar(5),
-    "duration" varchar(9),
-    "listed_in" varchar(74)
+    show_id varchar(5), 
+    type varchar(7),
+    title varchar(58),
+    country varchar(74),
+    date_added timestamp,
+    release_year int,
+    rating varchar(5),
+    duration varchar(9),
+    listed_in varchar(74)
 );
 
-CREATE TABLE netflix_people
-    ("show_id" varchar(5), "director" varchar(54), "cast" varchar(532))
-;
+CREATE TABLE netflix_people(show_id varchar(5), director varchar(54), cast varchar(532));
     
-INSERT INTO netflix_titles_info("show_id", "type", "title", "country", "date_added", "release_year", "rating", "duration", "listed_in")
+INSERT INTO netflix_titles_info(show_id, type, title, country, date_added, release_year, rating, duration, listed_in)
 VALUES
     ('s1', 'Movie', 'Dick Johnson Is Dead', 'United States', '2021-09-25 00:00:00', 2020, 'PG-13', '90 min', 'Documentaries'),
     ('s2', 'TV Show', 'Blood & Water', 'South Africa', '2021-09-24 00:00:00', 2021, 'TV-MA', '2 Seasons', 'International TV Shows | TV Dramas | TV Mysteries'),
@@ -45,7 +43,7 @@ VALUES
     ;
     
 INSERT INTO netflix_people
-    ("show_id", "director", "cast")
+    (show_id, director, cast)
 VALUES
     ('s1', 'Kirsten Johnson', NULL),
     ('s2', NULL, 'Ama Qamata| Khosi Ngema| Gail Mabalane| Thabang Molaba| Dillon Windvogel| Natasha Thahane| Arno Greeff| Xolile Tshabalala| Getmore Sithole| Cindy Mahlangu| Ryle De Morny| Greteli Fincham| Sello Maake Ka-Ncube| Odwa Gwanya| Mekaila Mathys| Sandi Schultz| Duane Williams| Shamilla Miller| Patrick Mofokeng'),
@@ -70,18 +68,18 @@ VALUES
     ;
 
 -- Display the number of records in the table
-SELECT count(*) FROM "netflix_people"
+SELECT count(*) FROM netflix_people;
 
 -- Display the first five records
-SELECT * FROM "netflix_titles_info" LIMIT 5;
+SELECT * FROM netflix_titles_info LIMIT 5;
 
 -- Show the show id, title and director
 SELECT titles.show_id
 , titles.title
 , people.director
-FROM "netflix_titles_info" titles
-LEFT JOIN "netflix_people" people
-ON "people".show_id = "titles".show_id;
+FROM netflix_titles_info titles
+LEFT JOIN netflix_people people
+ON people.show_id = titles.show_id;
 
 --Show the number of movies
 SELECT COUNT(*) 
@@ -90,25 +88,25 @@ WHERE type='Movie';
 
 -- Show the record with the newest date
 SELECT MAX(date(date_added))
-FROM "netflix_titles_info";
+FROM netflix_titles_info;
 
  -- Display all show titles ordered alphabetically 
 SELECT title
-FROM "netflix_titles_info"
+FROM netflix_titles_info
 ORDER BY title asc;
 
  -- Show the director of a specific show
 SELECT director
-FROM "netflix_titles_info" titles
-LEFT JOIN "netflix_people" people
+FROM netflix_titles_info titles
+LEFT JOIN netflix_people people
 ON titles.show_id = people.show_id
 WHERE titles.title = 'The Starling';
 
  -- Show the oldest movie's title and release year
 SELECT title, release_year
-FROM "netflix_titles_info"
+FROM netflix_titles_info
 WHERE type = 'Movie' 
 AND release_year <=
 (SELECT MIN (release_year)
- FROM "netflix_titles_info"
+ FROM netflix_titles_info
  WHERE type = 'Movie');
