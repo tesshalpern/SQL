@@ -142,7 +142,7 @@ AND country = "United states";
 -- Show sales where payment type is one of two types and like payment types are grouped together
 SELECT ID, name, city, payment_type
 FROM sales 
-WHERE payment_type IN ("Mastercard" , ”Amex") ORDER BY payment_type;
+WHERE payment_type IN ("Mastercard" , ”Amex")ORDER BY payment_type;
 
 -- Display transactions that meet certain criteria as "large order"
 SELECT transaction_date, product, price,
