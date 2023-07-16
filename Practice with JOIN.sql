@@ -42,18 +42,18 @@ INSERT INTO collab VALUES (5, 6);
 INSERT INTO collab VALUES (6, 7);
 INSERT INTO collab VALUES (6, 8);
 
--- Show the name of celebrities & project they collaborated on by pulling data from three tables
+-- Show the name of celebrities & project they collaborated on 
 SELECT title_of_work AS Collaborations, s.name
 FROM collab
 JOIN works_of_Art w ON w.id = collab.workofart_id
 JOIN Stars s ON S.id = collab.star_id;
 
--- Show the name & occupation of celebrities by pulling data from two tables
+-- Show the name & occupation of celebrities 
 SELECT Occupation, Name
 FROM Stars s
 JOIN Profession ON Profession.id = S.occupation_id;
 
--- Show the name of celebrity & title of one of their projects by pulling data from two tables
+-- Show the name of celebrity & title of one of their project(s) 
 SELECT Name, title_of_work 
 FROM Stars 
 JOIN works_of_art ON works_of_art.id = Stars.id;
